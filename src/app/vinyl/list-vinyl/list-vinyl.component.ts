@@ -1,14 +1,16 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {SingleVinylComponent} from "../single-vinyl/single-vinyl.component";
 import {VinylService} from '../vinyl.service';
-import {Vinyl} from '../vinyl.model';
+import {VinylFormTemplate} from '../vinyl.model';
 import {filter, map} from 'rxjs';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-list-vinyl',
-    imports: [
-        SingleVinylComponent
-    ],
+  imports: [
+    SingleVinylComponent,
+    RouterLink
+  ],
   templateUrl: './list-vinyl.component.html',
   styleUrl: './list-vinyl.component.scss'
 })
@@ -16,7 +18,7 @@ export class ListVinylComponent implements OnInit {
 
   vinylService = inject(VinylService);
 
-  vinyls: Vinyl[] = [];
+  vinyls: VinylFormTemplate[] = [];
 
   ngOnInit(): void {
     this.vinylService.getAll()

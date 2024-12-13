@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {Vinyl} from './vinyl.model';
+import {Vinyl, VinylFormTemplate} from './vinyl.model';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
@@ -37,13 +37,12 @@ export class VinylService {
     releaseDate: new Date('1958-01-01'),
   }];
 
-  public getAll(): Observable<HttpResponse<Vinyl[]>> {
-    return this.http.get<Vinyl[]>(`${environment.apiUrl}/vinyls`, {observe: "response"});
+  public getAll(): Observable<HttpResponse<VinylFormTemplate[]>> {
+    return this.http.get<VinylFormTemplate[]>(`${environment.apiUrl}/vinyls`, {observe: "response"});
   }
 
-  public save(vinyl: Vinyl): Vinyl {
-    this.vinyls.push(vinyl);
-    return vinyl;
+  public save(vinyl: Vinyl): Observable<Vinyl> {
+    return this.http.post<Vinyl>(`${environment.apiUrl}/vinyls`, vinyl);
   }
 
   getOneById(id: number) {
