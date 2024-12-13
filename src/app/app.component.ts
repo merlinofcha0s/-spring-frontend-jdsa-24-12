@@ -1,25 +1,21 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {SingleVinylComponent} from './vinyl/single-vinyl/single-vinyl.component';
-import {Vinyl} from './vinyl/vinyl.model';
-import {VinylService} from './vinyl/vinyl.service';
+import {Component, inject} from '@angular/core';
+import {Router, RouterLink, RouterOutlet} from '@angular/router';
 
 @Component({
   selector: 'app-root',
   imports: [
-    SingleVinylComponent
+    RouterOutlet,
+    RouterLink
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'vinylmgt';
 
-  vinylService = inject(VinylService);
+  router = inject(Router);
 
-  vinyls: Vinyl[] = [];
-
-  ngOnInit(): void {
-    this.vinylService.getAll()
-      .subscribe(response => this.vinyls = response.body!);
+  goToLogin() {
+    this.router.navigate(['login']);
   }
 }

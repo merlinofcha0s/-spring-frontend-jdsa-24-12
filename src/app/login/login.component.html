@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-4"></div>
+  <div class="col-4">
+    <form (ngSubmit)="login()" [formGroup]="loginForm">
+      <img class="mb-4" src="https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72"
+           height="57">
+      <h1 class="h3 mb-3 fw-normal">Please login</h1>
+
+      <div class="form-floating">
+        <input [class.is-invalid]="loginForm.get('username')?.dirty && loginForm.get('username')?.hasError('required')"
+          type="email" class="form-control" id="floatingInput"
+               placeholder="name@example.com" formControlName="username">
+        <label for="floatingInput">Email address</label>
+        @if (loginForm.get('username')?.dirty && loginForm.get('username')?.hasError('required')) {
+          <div class="invalid-feedback">
+            Un email est obligatoire
+          </div>
+        }
+      </div>
+
+      <div class="form-floating my-3">
+        <input type="password" class="form-control" id="floatingPassword"
+               placeholder="Password" formControlName="password">
+        <label for="floatingPassword">Password</label>
+      </div>
+
+      @if (errorAuthentication) {
+        <div class="alert alert-danger" role="alert">
+          <span class="alert-text">
+            {{errorAuthentication}}
+          </span>
+        </div>
+      }
+      <button class="btn btn-primary w-100 py-2" type="submit" [disabled]="!loginForm.valid" >Log in</button>
+    </form>
+  </div>
+  <div class="col-4"></div>
+</div>

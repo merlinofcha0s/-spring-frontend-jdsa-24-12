@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {Vinyl} from './vinyl.model';
-import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
+import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 
@@ -10,9 +10,6 @@ import {environment} from '../../environments/environment';
 export class VinylService {
 
   http = inject(HttpClient);
-
-  jwt = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ2aW55bGZhbkBmYW4uY29tIiwiZXhwIjoxNzM0MTgwNjYyLCJhdXRoIjoiUk9MRV9VU0VSIiwiaWF0IjoxNzM0MDk0MjYyfQ.uZVlixdNNKardYJrEloVoOSeXNlds36C90vrTH1xksmoLjHsg4mgbcUdZRR-SeHTVfx0Sltoymiw8f5c_-vW7Q";
-  httpHeader = new HttpHeaders().set('Authorization', `Bearer ${this.jwt}`);
 
   vinyls: Array<Vinyl> = [{
     id: 0,
@@ -41,7 +38,7 @@ export class VinylService {
   }];
 
   public getAll(): Observable<HttpResponse<Vinyl[]>> {
-    return this.http.get<Vinyl[]>(`${environment.apiUrl}/vinyls`, {headers: this.httpHeader, observe: "response"});
+    return this.http.get<Vinyl[]>(`${environment.apiUrl}/vinyls`, {observe: "response"});
   }
 
   public save(vinyl: Vinyl): Vinyl {
